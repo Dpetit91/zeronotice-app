@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Zero Notice FAQ — Common questions about emergency drill training." />
+  <title>FAQ — Zero Notice</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --border: #2a2a2a;
+      --accent: #ff3a2d;
+      --green: #34c759;
+      --text: #f0f0f0;
+      --muted-2: #888;
+      --muted: #555;
+      --mono: 'Courier New', Courier, monospace;
+    }
+
+    html, body { background: var(--bg); color: var(--text); font-family: var(--mono); min-height: 100vh; }
+
+    /* NAV */
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 40px; border-bottom: 1px solid var(--border);
+    }
+    .nav-left { display: flex; flex-direction: column; gap: 4px; text-decoration: none; }
+    .nav-logo { font-size: 18px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-tagline { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 32px; }
+    nav a.nav-link { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted-2); text-decoration: none; transition: color 0.15s; }
+    nav a.nav-link:hover, nav a.nav-link.active { color: var(--text); }
+
+    /* CONTENT */
+    .content { max-width: 800px; margin: 0 auto; padding: 80px 40px; }
+
+    .page-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+    h1 { font-size: 36px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
+    .page-intro { font-size: 13px; color: var(--muted-2); line-height: 2; letter-spacing: 0.03em; margin-bottom: 72px; }
+
+    /* FAQ ITEMS */
+    .faq-section-label {
+      font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 24px; margin-top: 56px;
+      padding-bottom: 12px; border-bottom: 1px solid var(--border);
+    }
+    .faq-section-label:first-of-type { margin-top: 0; }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 32px 0;
+    }
+    .faq-q {
+      font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text); margin-bottom: 20px; line-height: 1.5;
+    }
+    .faq-a {
+      font-size: 13px; color: var(--muted-2); line-height: 2.1; letter-spacing: 0.03em;
+    }
+    .faq-a strong { color: var(--text); font-weight: 700; }
+    .faq-a .highlight { color: var(--accent); }
+    .faq-a .green { color: var(--green); }
+
+    /* CONTACT CTA */
+    .contact-block {
+      margin-top: 64px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 40px 32px;
+    }
+    .contact-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .contact-text { font-size: 13px; color: var(--muted-2); line-height: 2; letter-spacing: 0.03em; }
+    .contact-text a { color: var(--accent); text-decoration: none; }
+    .contact-text a:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border); padding: 32px 40px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+    footer p { font-size: 10px; color: var(--muted-2); letter-spacing: 0.1em; text-transform: uppercase; }
+    .footer-links { display: flex; gap: 24px; }
+    footer a { font-size: 10px; color: var(--muted-2); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: color 0.15s; }
+    footer a:hover { color: var(--text); }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .nav-right { gap: 16px; }
+      .nav-hide-sm { display: none; }
+      .content { padding: 60px 20px; }
+      footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-left" href="/">
+      <span class="nav-logo"><span>Zero</span> Notice</span>
+      <span class="nav-tagline">Emergency Preparedness</span>
+    </a>
+    <div class="nav-right">
+      <a class="nav-link nav-hide-sm" href="/drills.html">Drills</a>
+      <a class="nav-link active nav-hide-sm" href="/faq.html">FAQ</a>
+      <a class="nav-link nav-hide-sm" href="/about.html">About</a>
+      <a class="nav-link" href="/privacy.html">Privacy Policy</a>
+    </div>
+  </nav>
+
+  <div class="content">
+    <p class="page-label">Questions</p>
+    <h1>FAQ</h1>
+    <p class="page-intro">Straight answers to the most common questions about Zero Notice.</p>
+
+    <!-- HOW IT WORKS -->
+    <p class="faq-section-label">How It Works</p>
+
+    <div class="faq-item">
+      <p class="faq-q">What actually happens when a drill fires?</p>
+      <p class="faq-a">Your phone receives a notification at a randomized time — no preview, no countdown. The Zero Notice app opens to the drill screen. A timer starts immediately. You see <strong>"GO TIME — EXECUTE YOUR PREP ROUTINE."</strong> From that moment, the clock is running. You execute your protocol, gather your gear, complete your steps. When you're done, you tap <strong class="green">DONE</strong> and the clock stops. You then enter the debrief phase, where you review your prep checklist, mark what you completed, and log the result.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">What is a prep list and how do I build one?</p>
+      <p class="faq-a">Your prep list is the protocol you define — every item of gear, every action, every step that constitutes being fully prepared. You build it inside the app under <strong>My Prep</strong>. Add items in priority order: the first item should be the first thing you grab or do in a real emergency. When a drill fires, your prep list becomes your checklist. Zero Notice doesn't ship with preset scenarios — the protocol is entirely yours.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">Can I set quiet hours so drills don't fire at 3am?</p>
+      <p class="faq-a">Yes. In Settings, you can configure your drill window in two ways. <strong>Anytime mode</strong> (the default) allows drills to fire any hour of the day or night — full 24-hour coverage. <strong>Quiet hours mode</strong> lets you set a start and end time; drills are then scheduled to fire only outside that window. You can also control which days of the week are active, and how many drills fire per active day. If you want realistic training, leaving it on anytime mode is the point — emergencies don't keep business hours.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">Does it really work when my phone is on Do Not Disturb?</p>
+      <p class="faq-a">Yes — with one condition. Zero Notice uses <strong>iOS Time Sensitive notifications</strong>, which are designed to break through Do Not Disturb and Focus filters. When you first enable training mode, the app walks you through adding Zero Notice to your <strong>notification allowlist</strong>. Once that's done, drills fire regardless of your silence or Focus settings. This is intentional: a drill that only fires when your phone is on full volume isn't training you for anything real.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">Can I run a drill manually, on demand?</p>
+      <p class="faq-a">Yes. The home screen has a <strong>Manual Drill</strong> button that starts a drill immediately. Manual drills count toward your history, your baseline, and your drill count. They are useful for initial setup and verifying your prep list — but keep in mind that a drill you initiate yourself doesn't carry the same training value as one that fires without warning. The randomized drills are the core of the system.</p>
+    </div>
+
+    <!-- PERFORMANCE & TRACKING -->
+    <p class="faq-section-label">Performance & Tracking</p>
+
+    <div class="faq-item">
+      <p class="faq-q">How does my baseline time work?</p>
+      <p class="faq-a">Your <strong>baseline</strong> is the elapsed time from your very first completed drill. It's set automatically and permanently — it represents where you started. Every subsequent drill is measured against it. If you complete a drill 18 seconds faster than your baseline, the app shows <span class="green">↑ faster than baseline</span>. If you set a new personal best, you'll see <span class="green">★ NEW PERSONAL BEST</span>. The baseline never resets unless you perform a full data reset, which is intentional — it's your permanent starting mark.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">Where can I see my drill history?</p>
+      <p class="faq-a">From the home screen, tap <strong>View History</strong>. You can filter your results by 7 days, 30 days, 90 days, 1 year, or all time, as well as set a custom date range. The history screen shows your total drills, average completion time, and best time for the selected period. Your most recent drills appear first.</p>
+    </div>
+
+    <!-- PRICING & ACCESS -->
+    <p class="faq-section-label">Pricing & Access</p>
+
+    <div class="faq-item">
+      <p class="faq-q">What's included in the free tier?</p>
+      <p class="faq-a">The free tier gives you <strong class="highlight">3 drills every 30 days</strong> — a rolling 30-day window, not a calendar month reset. You get the full drill experience: randomized scheduling, the running timer, debrief checklist, baseline tracking, and performance history. The only limitation is drill frequency. Three drills a month is enough to understand the system and validate your prep list. Serious training requires more reps.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">What do I get with Lifetime Access?</p>
+      <p class="faq-a">A one-time payment of <strong>$29.99</strong> — no subscription, no renewal, no recurring charge. Lifetime Access removes the 30-day drill limit entirely. Unlimited drills, full history, and all future updates included. You own it. The one-time model was a deliberate choice for individual users: own it once, train indefinitely.</p>
+    </div>
+
+    <!-- DATA & PRIVACY -->
+    <p class="faq-section-label">Data & Privacy</p>
+
+    <div class="faq-item">
+      <p class="faq-q">What happens to my data if I delete the app?</p>
+      <p class="faq-a">It's gone. All of it — drill history, prep list, baseline time, settings. Zero Notice stores everything locally on your device using Apple's on-device storage. There is <strong>no cloud backup, no account, no server</strong>. When you delete the app, iOS wipes the storage sandbox entirely. This is by design and consistent with our privacy policy. If you want to preserve your history, do not delete the app. Your Lifetime purchase can be restored through Apple at any time — your training data cannot.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">Who can see my drill data?</p>
+      <p class="faq-a"><strong>Nobody.</strong> Your drill history, prep list, settings, baseline time, and performance data never leave your device. Zero Notice has no servers, no accounts, no analytics, and no tracking. The only external service the app uses is RevenueCat for purchase verification — and that only processes an anonymous device identifier to confirm your Lifetime purchase. Your training data is yours alone. See the <a href="/privacy.html">Privacy Policy</a> for the complete breakdown.</p>
+    </div>
+
+    <div class="contact-block">
+      <p class="contact-label">Still have a question?</p>
+      <p class="contact-text">Reach out at <a href="mailto:info@proximaholdings.com">info@proximaholdings.com</a> — we'll get back to you.</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Proxima Holdings LLC. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/drills.html">Drills</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy Policy</a>
+    </div>
+  </footer>
+
+</body>
+</html>

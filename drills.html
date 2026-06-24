@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Zero Notice — Define your emergency protocol. We fire the test." />
+  <title>Drills — Zero Notice</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --surface-high: #1e1e1e;
+      --border: #2a2a2a;
+      --accent: #ff3a2d;
+      --accent-glow: rgba(255,58,45,0.15);
+      --orange: #ff9500;
+      --green: #34c759;
+      --green-glow: rgba(52,199,89,0.15);
+      --text: #f0f0f0;
+      --muted-2: #888;
+      --muted: #555;
+      --mono: 'Courier New', Courier, monospace;
+    }
+
+    html, body { background: var(--bg); color: var(--text); font-family: var(--mono); min-height: 100vh; }
+
+    /* NAV */
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 40px; border-bottom: 1px solid var(--border);
+    }
+    .nav-left { display: flex; flex-direction: column; gap: 4px; text-decoration: none; }
+    .nav-logo { font-size: 18px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-tagline { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 32px; }
+    nav a.nav-link { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted-2); text-decoration: none; transition: color 0.15s; }
+    nav a.nav-link:hover, nav a.nav-link.active { color: var(--text); }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 80px 40px 60px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .page-label {
+      font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 20px;
+    }
+    .page-title {
+      font-size: clamp(28px, 5vw, 52px);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      line-height: 1.1; margin-bottom: 24px;
+    }
+    .page-intro {
+      font-size: clamp(13px, 1.5vw, 15px);
+      color: var(--muted-2); line-height: 2; letter-spacing: 0.04em;
+      max-width: 640px;
+    }
+
+    /* DIVIDER */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0 40px; }
+
+    /* FLOW SECTION */
+    .flow {
+      padding: 80px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .flow-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+    }
+    .flow-step {
+      display: flex;
+      flex-direction: column;
+    }
+    .flow-step .phone {
+      margin-top: auto;
+    }
+    .step-number {
+      font-size: 10px; color: var(--accent); letter-spacing: 0.3em;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .step-title {
+      font-size: 16px; letter-spacing: 0.15em; text-transform: uppercase;
+      margin-bottom: 16px; color: var(--text);
+    }
+    .step-copy {
+      font-size: 12px; color: var(--muted-2); line-height: 2; letter-spacing: 0.03em;
+      margin-bottom: 32px;
+    }
+
+    /* PHONE MOCKUP */
+    .phone {
+      width: 100%;
+      max-width: 240px;
+      margin: 0 auto;
+      background: #111;
+      border-radius: 36px;
+      border: 2px solid #333;
+      padding: 12px 10px 20px;
+      position: relative;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    }
+    .phone-notch {
+      width: 80px; height: 24px;
+      background: #111; border: 2px solid #333;
+      border-radius: 12px; margin: 0 auto 10px;
+    }
+    .phone-screen {
+      background: var(--bg);
+      border-radius: 24px;
+      padding: 14px 12px;
+      height: 490px;
+      overflow: hidden;
+    }
+    .phone-home-bar {
+      width: 60px; height: 4px; background: #444;
+      border-radius: 2px; margin: 10px auto 0;
+    }
+
+    /* SCREEN: MY PREP */
+    .s-header {
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 10px; padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .s-title { font-size: 11px; font-weight: 900; letter-spacing: 4px; color: var(--text); }
+    .s-subtitle {
+      font-size: 8px; color: var(--muted-2); line-height: 1.6;
+      margin-bottom: 8px; letter-spacing: 0.5px;
+    }
+    .s-hint { font-size: 7px; color: var(--muted); margin-bottom: 10px; letter-spacing: 0.5px; }
+    .s-input-row {
+      display: flex; gap: 6px; margin-bottom: 10px;
+    }
+    .s-input {
+      flex: 1; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 6px; padding: 6px 8px;
+      font-size: 9px; color: var(--muted-2); font-family: var(--mono);
+      letter-spacing: 1px;
+    }
+    .s-add-btn {
+      width: 28px; height: 28px; border-radius: 6px;
+      background: var(--accent); display: flex; align-items: center;
+      justify-content: center; font-size: 16px; color: #fff; line-height: 1;
+      flex-shrink: 0;
+    }
+    .s-item {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 6px; padding: 7px 8px; margin-bottom: 5px;
+    }
+    .s-item-num { font-size: 8px; color: var(--accent); font-weight: 700; letter-spacing: 1px; width: 16px; }
+    .s-item-text { font-size: 9px; font-weight: 700; color: var(--text); flex: 1; letter-spacing: 1.5px; }
+    .s-item-dots { font-size: 10px; color: var(--muted); }
+    .s-count { font-size: 7px; color: var(--muted); letter-spacing: 2px; text-align: center; margin-top: 6px; }
+    .s-footer-note {
+      font-size: 7px; color: var(--muted); line-height: 1.5;
+      border-top: 1px solid var(--border); padding-top: 6px; margin-top: 8px;
+    }
+
+    /* SCREEN: DRILL RUNNING */
+    .s-badge {
+      display: inline-block;
+      background: var(--accent-glow); border: 1px solid var(--accent);
+      border-radius: 20px; padding: 3px 10px;
+      font-size: 8px; color: var(--accent); letter-spacing: 1.5px; font-weight: 700;
+      margin-bottom: 28px;
+    }
+    .s-go { font-size: 36px; font-weight: 900; color: var(--accent); letter-spacing: 8px; text-align: center; line-height: 1; }
+    .s-instruction { font-size: 7px; color: var(--muted-2); letter-spacing: 2px; text-align: center; margin-top: 4px; margin-bottom: 24px; }
+    .s-timer { font-size: 48px; font-weight: 900; color: var(--text); letter-spacing: 2px; text-align: center; font-family: var(--mono); line-height: 1; }
+    .s-timer-label { font-size: 7px; color: var(--muted); letter-spacing: 3px; text-align: center; margin-top: 4px; margin-bottom: 4px; }
+    .s-timer-sec { font-size: 9px; color: var(--muted); letter-spacing: 1px; text-align: center; margin-bottom: 32px; }
+    .s-done-btn {
+      background: var(--green); border-radius: 8px;
+      padding: 14px; text-align: center;
+      font-size: 14px; font-weight: 900; color: #fff; letter-spacing: 5px;
+      box-shadow: 0 0 20px rgba(52,199,89,0.3);
+    }
+    .s-drill-inner { display: flex; flex-direction: column; align-items: center; height: 100%; }
+
+    /* SCREEN: DEBRIEF */
+    .s-complete-badge {
+      display: flex; align-items: center; gap: 5px;
+      margin-bottom: 14px;
+    }
+    .s-check-icon { color: var(--green); font-size: 14px; }
+    .s-complete-text { font-size: 9px; color: var(--green); font-weight: 700; letter-spacing: 2px; }
+    .s-final-time { font-size: 38px; font-weight: 900; color: var(--green); text-align: center; letter-spacing: 2px; margin-bottom: 2px; }
+    .s-final-label { font-size: 7px; color: var(--muted); letter-spacing: 3px; text-align: center; margin-bottom: 12px; }
+    .s-perf-card {
+      background: var(--surface); border: 1px solid var(--green);
+      border-radius: 6px; padding: 8px 10px; margin-bottom: 12px;
+    }
+    .s-perf-label { font-size: 10px; font-weight: 900; color: var(--green); letter-spacing: 1px; margin-bottom: 2px; }
+    .s-perf-sub { font-size: 7px; color: var(--muted-2); letter-spacing: 0.5px; }
+    .s-perf-baseline { font-size: 7px; color: var(--muted); letter-spacing: 1px; margin-top: 3px; }
+    .s-debrief-header { font-size: 12px; font-weight: 900; letter-spacing: 3px; color: var(--text); margin-bottom: 8px; }
+    .s-cl-item {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--surface); border-radius: 5px;
+      padding: 6px 8px; margin-bottom: 4px; border: 1px solid var(--border);
+    }
+    .s-cl-item.done { border-color: var(--green); background: var(--green-glow); }
+    .s-checkbox {
+      width: 14px; height: 14px; border-radius: 3px; border: 1.5px solid var(--muted);
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    }
+    .s-checkbox.done { background: var(--green); border-color: var(--green); font-size: 8px; color: #000; }
+    .s-cl-text { font-size: 8px; font-weight: 700; color: var(--muted-2); letter-spacing: 1px; flex: 1; }
+    .s-cl-text.done { color: var(--green); text-decoration: line-through; }
+    .s-pct { font-size: 7px; color: var(--muted); letter-spacing: 2px; text-align: right; margin-top: 4px; margin-bottom: 10px; }
+    .s-complete-btn {
+      background: var(--green); border-radius: 6px; padding: 10px;
+      text-align: center; font-size: 10px; font-weight: 900; color: #fff; letter-spacing: 4px;
+    }
+
+    /* SCREEN: HISTORY */
+    .s-hist-header {
+      display: flex; align-items: center;
+      margin-bottom: 8px; padding-bottom: 6px;
+      border-bottom: 1px solid var(--border); gap: 6px;
+    }
+    .s-back-btn {
+      width: 18px; height: 18px; border-radius: 9px;
+      background: var(--surface); display: flex; align-items: center;
+      justify-content: center; font-size: 9px; color: var(--muted-2); flex-shrink: 0;
+    }
+    .s-period-row { display: flex; gap: 4px; margin-bottom: 8px; flex-wrap: wrap; }
+    .s-period-pill {
+      padding: 3px 7px; border-radius: 20px;
+      border: 1px solid var(--border); background: var(--surface);
+      font-size: 7px; font-weight: 700; color: var(--muted); letter-spacing: 1px;
+    }
+    .s-period-pill.active { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+    .s-stat-row { display: flex; gap: 4px; margin-bottom: 8px; }
+    .s-stat-chip {
+      flex: 1; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 5px; padding: 5px 4px;
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+    }
+    .s-stat-chip.gold { border-color: var(--orange); }
+    .s-stat-val { font-size: 13px; font-weight: 900; color: var(--text); font-family: var(--mono); line-height: 1; }
+    .s-stat-chip.gold .s-stat-val { color: var(--orange); }
+    .s-stat-lbl { font-size: 6px; color: var(--muted); letter-spacing: 1.5px; }
+    .s-prog-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 5px; padding: 7px 7px 5px; margin-bottom: 6px;
+    }
+    .s-prog-title { font-size: 8px; font-weight: 900; color: var(--text); letter-spacing: 2px; margin-bottom: 1px; }
+    .s-prog-sub { font-size: 6px; color: var(--muted); letter-spacing: 0.5px; margin-bottom: 4px; }
+    .s-chart-legend-row { display: flex; gap: 7px; margin-top: 4px; flex-wrap: wrap; }
+    .s-cleg-item { display: flex; align-items: center; gap: 3px; }
+    .s-cleg-dot { width: 5px; height: 5px; border-radius: 2.5px; flex-shrink: 0; }
+    .s-cleg-txt { font-size: 6px; color: var(--muted); letter-spacing: 0.3px; }
+    .s-list-hdr { display: flex; align-items: center; margin-bottom: 5px; }
+    .s-list-toggle-row { display: flex; gap: 3px; }
+    .s-ltoggle {
+      padding: 2px 6px; border-radius: 3px; border: 1px solid var(--border);
+      background: var(--surface); font-size: 6px; font-weight: 700; color: var(--muted); letter-spacing: 1px;
+    }
+    .s-ltoggle.active { border-color: var(--accent); color: var(--accent); }
+    .s-hrow {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 5px; padding: 5px 7px; margin-bottom: 4px;
+    }
+    .s-hrow.latest { border-color: var(--orange); }
+    .s-hleft { display: flex; align-items: flex-start; gap: 5px; }
+    .s-hdot { width: 6px; height: 6px; border-radius: 3px; background: var(--accent); margin-top: 2px; flex-shrink: 0; }
+    .s-hdate { font-size: 8px; font-weight: 700; color: var(--text); letter-spacing: 0.5px; }
+    .s-htime-sm { font-size: 6px; color: var(--muted-2); letter-spacing: 0.3px; margin-top: 1px; }
+    .s-helapsed { font-size: 15px; font-weight: 900; color: var(--green); font-family: var(--mono); letter-spacing: 0.5px; }
+    .s-helapsed.pb { color: #ffcc00; }
+
+    /* CALLOUTS */
+    .callouts {
+      padding: 0 40px 80px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .callouts-label {
+      font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 40px;
+    }
+    .callout-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      background: var(--bg);
+    }
+    .callout {
+      background: var(--surface); padding: 32px;
+    }
+    .callout:last-child:nth-child(3n+1) {
+      grid-column: 2;
+    }
+    .callout-icon { font-size: 20px; margin-bottom: 14px; }
+    .callout h3 {
+      font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .callout p { font-size: 12px; color: var(--muted-2); line-height: 1.9; letter-spacing: 0.03em; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border); padding: 32px 40px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+    footer p { font-size: 10px; color: var(--muted-2); letter-spacing: 0.1em; text-transform: uppercase; }
+    .footer-links { display: flex; gap: 24px; }
+    footer a { font-size: 10px; color: var(--muted-2); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: color 0.15s; }
+    footer a:hover { color: var(--text); }
+
+    @media (max-width: 900px) {
+      .flow-steps { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .phone { max-width: 280px; }
+      .callout-grid { grid-template-columns: 1fr; }
+      .callout:last-child:nth-child(3n+1) { grid-column: 1; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .nav-right { gap: 16px; }
+      .nav-hide-sm { display: none; }
+      .page-header, .flow, .callouts { padding-left: 20px; padding-right: 20px; }
+      .divider { margin: 0 20px; }
+      .flow-steps { grid-template-columns: 1fr; }
+      footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-left" href="/">
+      <span class="nav-logo"><span>Zero</span> Notice</span>
+      <span class="nav-tagline">Emergency Preparedness</span>
+    </a>
+    <div class="nav-right">
+      <a class="nav-link active nav-hide-sm" href="/drills.html">Drills</a>
+      <a class="nav-link nav-hide-sm" href="/faq.html">FAQ</a>
+      <a class="nav-link nav-hide-sm" href="/about.html">About</a>
+      <a class="nav-link" href="/privacy.html">Privacy Policy</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-label">How It Works</p>
+    <h1 class="page-title">You define prepared.<br />We test if you are.</h1>
+    <p class="page-intro">Most training apps tell you what to do. Zero Notice tests whether you can actually do it — on zero notice, under real pressure. The protocol is yours. You build it. You own it. The app just fires the clock.</p>
+  </div>
+
+  <hr class="divider" />
+
+  <section class="flow">
+    <div class="flow-steps">
+
+      <!-- STEP 1 -->
+      <div class="flow-step">
+        <p class="step-number">Step 01</p>
+        <h2 class="step-title">Build Your Prep</h2>
+        <p class="step-copy">Open My Prep and define your emergency protocol — every item of gear, every action, every step. Add them in order of priority. This list becomes your drill checklist. It's entirely yours — no preset scenarios, no assumptions.</p>
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="s-header"><span class="s-title">MY PREP</span></div>
+            <p class="s-subtitle">Define your emergency prep routine. When a drill fires, these items appear as your checklist.</p>
+            <p class="s-hint">Example: TAC VEST · BOOTS · RIFLE · BUG OUT BAG</p>
+            <div class="s-input-row">
+              <div class="s-input">ADD ITEM...</div>
+              <div class="s-add-btn">+</div>
+            </div>
+            <div class="s-item">
+              <span class="s-item-num">01</span>
+              <span class="s-item-text">TAC VEST</span>
+              <span class="s-item-dots">⋮</span>
+            </div>
+            <div class="s-item">
+              <span class="s-item-num">02</span>
+              <span class="s-item-text">BOOTS</span>
+              <span class="s-item-dots">⋮</span>
+            </div>
+            <div class="s-item">
+              <span class="s-item-num">03</span>
+              <span class="s-item-text">BUG OUT BAG</span>
+              <span class="s-item-dots">⋮</span>
+            </div>
+            <div class="s-item">
+              <span class="s-item-num">04</span>
+              <span class="s-item-text">RIFLE</span>
+              <span class="s-item-dots">⋮</span>
+            </div>
+            <div class="s-item">
+              <span class="s-item-num">05</span>
+              <span class="s-item-text">FIRST AID KIT</span>
+              <span class="s-item-dots">⋮</span>
+            </div>
+            <p class="s-count">5 ITEMS IN YOUR PREP</p>
+            <p class="s-footer-note">Items appear as a checklist when a drill fires. Order matters — put highest-priority gear first.</p>
+          </div>
+          <div class="phone-home-bar"></div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="flow-step">
+        <p class="step-number">Step 02</p>
+        <h2 class="step-title">The Drill Fires</h2>
+        <p class="step-copy">At a randomized time — no preview, no countdown — your phone fires the alert. It cuts through Do Not Disturb. The clock starts immediately. This is where training meets reality: you have to move, not think.</p>
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="s-drill-inner">
+              <div style="width:100%">
+                <div class="s-badge">🚨 DRILL ALERT</div>
+              </div>
+              <div style="margin-bottom:20px; width:100%; text-align:center;">
+                <div class="s-go">GO<br/>TIME</div>
+                <div class="s-instruction">EXECUTE YOUR PREP ROUTINE</div>
+              </div>
+              <div style="width:100%; text-align:center; margin-bottom: 8px;">
+                <div class="s-timer">02:14</div>
+                <div class="s-timer-label">ELAPSED</div>
+                <div class="s-timer-sec">134s</div>
+              </div>
+              <div style="width:100%; margin-top: auto;">
+                <div class="s-done-btn">DONE</div>
+              </div>
+            </div>
+          </div>
+          <div class="phone-home-bar"></div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="flow-step">
+        <p class="step-number">Step 03</p>
+        <h2 class="step-title">Debrief</h2>
+        <p class="step-copy">Hit DONE and the clock stops. Walk through your prep checklist — mark each item you completed. Your time, completion rate, and performance vs. your personal baseline are all logged. Over time, the trend tells you exactly where you stand.</p>
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="s-complete-badge">
+              <span class="s-check-icon">✓</span>
+              <span class="s-complete-text">DRILL COMPLETE</span>
+            </div>
+            <div class="s-final-time">02:14</div>
+            <div class="s-final-label">FINAL TIME</div>
+            <div class="s-perf-card">
+              <div class="s-perf-label">↑ 12.3% FASTER</div>
+              <div class="s-perf-sub">18s faster than baseline</div>
+              <div class="s-perf-baseline">Baseline: 02:32</div>
+            </div>
+            <div class="s-debrief-header">DEBRIEF</div>
+            <div class="s-cl-item done">
+              <div class="s-checkbox done">✓</div>
+              <span class="s-cl-text done">TAC VEST</span>
+            </div>
+            <div class="s-cl-item done">
+              <div class="s-checkbox done">✓</div>
+              <span class="s-cl-text done">BOOTS</span>
+            </div>
+            <div class="s-cl-item done">
+              <div class="s-checkbox done">✓</div>
+              <span class="s-cl-text done">BUG OUT BAG</span>
+            </div>
+            <div class="s-cl-item">
+              <div class="s-checkbox"></div>
+              <span class="s-cl-text">RIFLE</span>
+            </div>
+            <div class="s-cl-item">
+              <div class="s-checkbox"></div>
+              <span class="s-cl-text">FIRST AID KIT</span>
+            </div>
+            <div class="s-pct">60% COMPLETE</div>
+            <div class="s-complete-btn">COMPLETE</div>
+          </div>
+          <div class="phone-home-bar"></div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="flow-step">
+        <p class="step-number">Step 04</p>
+        <h2 class="step-title">Track Over Time</h2>
+        <p class="step-copy">Filter by 7D, 30D, 90D, 1Y, or custom. Stats react to the selected period. The line chart maps every drill — green at or below baseline, red above it, gold at personal best. Watch the trend line drop.</p>
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+
+            <!-- Header -->
+            <div class="s-hist-header">
+              <div class="s-back-btn">←</div>
+              <span class="s-title">HISTORY</span>
+            </div>
+
+            <!-- Period pills -->
+            <div class="s-period-row">
+              <div class="s-period-pill">7D</div>
+              <div class="s-period-pill active">30D</div>
+              <div class="s-period-pill">90D</div>
+              <div class="s-period-pill">1Y</div>
+              <div class="s-period-pill">ALL</div>
+              <div class="s-period-pill">⊡ CUSTOM</div>
+            </div>
+
+            <!-- Stats chips -->
+            <div class="s-stat-row">
+              <div class="s-stat-chip">
+                <span class="s-stat-val">10</span>
+                <span class="s-stat-lbl">DRILLS</span>
+              </div>
+              <div class="s-stat-chip">
+                <span class="s-stat-val">01:37</span>
+                <span class="s-stat-lbl">AVG</span>
+              </div>
+              <div class="s-stat-chip gold">
+                <span class="s-stat-val">01:26</span>
+                <span class="s-stat-lbl">BEST</span>
+              </div>
+            </div>
+
+            <!-- Progress chart -->
+            <div class="s-prog-card">
+              <div class="s-prog-title">PROGRESS</div>
+              <div class="s-prog-sub">10 drills — 30D</div>
+              <svg viewBox="0 0 190 110" width="100%" style="display:block">
+                <!-- Grid lines -->
+                <line x1="32" y1="27" x2="178" y2="27" stroke="#222" stroke-width="1"/>
+                <line x1="32" y1="53" x2="178" y2="53" stroke="#222" stroke-width="1"/>
+                <line x1="32" y1="79" x2="178" y2="79" stroke="#222" stroke-width="1"/>
+                <!-- Y-axis labels -->
+                <text x="30" y="31" font-size="8" fill="#555" text-anchor="end" font-family="Courier New">3:30</text>
+                <text x="30" y="57" font-size="8" fill="#555" text-anchor="end" font-family="Courier New">2:30</text>
+                <text x="30" y="83" font-size="8" fill="#555" text-anchor="end" font-family="Courier New">1:30</text>
+                <!-- X-axis labels -->
+                <text x="32" y="106" font-size="8" fill="#555" text-anchor="middle" font-family="Courier New">1</text>
+                <text x="97" y="106" font-size="8" fill="#555" text-anchor="middle" font-family="Courier New">5</text>
+                <text x="178" y="106" font-size="8" fill="#555" text-anchor="middle" font-family="Courier New">10</text>
+                <!-- Baseline dashed (3:30 → y=27) -->
+                <line x1="32" y1="27" x2="178" y2="27" stroke="#ff9500" stroke-width="1" stroke-dasharray="4,3"/>
+                <!-- Personal best dashed (1:26 → y=81) -->
+                <line x1="32" y1="81" x2="178" y2="81" stroke="#ffcc00" stroke-width="1" stroke-dasharray="4,3"/>
+                <!-- Connecting line -->
+                <polyline points="32,27 48,21 64,32 81,39 97,46 113,52 129,58 146,65 162,72 178,81" fill="none" stroke="#333" stroke-width="1.5"/>
+                <!-- Drill dots: green (at/below baseline), red (above), gold (personal best) -->
+                <circle cx="32" cy="27" r="3" fill="#34c759" stroke="#0a0a0a" stroke-width="1.5"/>
+                <circle cx="48" cy="21" r="3" fill="#ff3a2d" stroke="#0a0a0a" stroke-width="1.5"/>
+                <circle cx="64" cy="32" r="3" fill="#34c759" stroke="#0a0a0a" stroke-width="1.5"/>
+                <circle cx="81" cy="39" r="3" fill="#34c759" stroke="#0a0a0a" stroke-width="1.5"/>
+                <circle cx="97" cy="46" r="3" fill="#34c759" stroke="#0a0a0a" stroke-width="1.5"/>
+                <circle cx="113" cy="52" r="3" fill="#34c759" stroke="#0a0a0a" stroke-width="1.5"/>
+                <circle cx="129" cy="58" r="3" fill="#34c759" stroke="#0a0a0a" stroke-width="1.5"/>
+                <circle cx="146" cy="65" r="3" fill="#34c759" stroke="#0a0a0a" stroke-width="1.5"/>
+                <circle cx="162" cy="72" r="3" fill="#34c759" stroke="#0a0a0a" stroke-width="1.5"/>
+                <circle cx="178" cy="81" r="5" fill="#ffcc00" stroke="#0a0a0a" stroke-width="1.5"/>
+              </svg>
+              <div class="s-chart-legend-row">
+                <div class="s-cleg-item">
+                  <div class="s-cleg-dot" style="background:#34c759"></div>
+                  <span class="s-cleg-txt">AT/BELOW BASE</span>
+                </div>
+                <div class="s-cleg-item">
+                  <div class="s-cleg-dot" style="background:#ff3a2d"></div>
+                  <span class="s-cleg-txt">ABOVE BASE</span>
+                </div>
+                <div class="s-cleg-item">
+                  <div class="s-cleg-dot" style="background:#ffcc00"></div>
+                  <span class="s-cleg-txt">BEST</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- List toggle -->
+            <div class="s-list-hdr">
+              <div class="s-list-toggle-row">
+                <div class="s-ltoggle active">30D</div>
+                <div class="s-ltoggle">ALL</div>
+              </div>
+            </div>
+
+            <!-- Drill history rows -->
+            <div class="s-hrow latest">
+              <div class="s-hleft">
+                <div class="s-hdot"></div>
+                <div>
+                  <div class="s-hdate">Tue Jun 23</div>
+                  <div class="s-htime-sm">6:12 AM</div>
+                </div>
+              </div>
+              <div class="s-helapsed pb">01:26</div>
+            </div>
+            <div class="s-hrow">
+              <div class="s-hleft">
+                <div class="s-hdot"></div>
+                <div>
+                  <div class="s-hdate">Sat Jun 14</div>
+                  <div class="s-htime-sm">11:03 PM</div>
+                </div>
+              </div>
+              <div class="s-helapsed">01:44</div>
+            </div>
+            <div class="s-hrow">
+              <div class="s-hleft">
+                <div class="s-hdot"></div>
+                <div>
+                  <div class="s-hdate">Wed Jun 04</div>
+                  <div class="s-htime-sm">2:47 PM</div>
+                </div>
+              </div>
+              <div class="s-helapsed">01:58</div>
+            </div>
+
+          </div>
+          <div class="phone-home-bar"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section class="callouts">
+    <p class="callouts-label">What Sets This Apart</p>
+    <div class="callout-grid">
+      <div class="callout">
+        <div class="callout-icon">⚡</div>
+        <h3>No Preset Scenarios</h3>
+        <p>Zero Notice doesn't assume your emergency looks like anyone else's. You define the protocol that fits your home, your gear, and your threat model. The app executes your plan — not a generic one.</p>
+      </div>
+      <div class="callout">
+        <div class="callout-icon">🕐</div>
+        <h3>Zero Warning</h3>
+        <p>Drills fire at a randomized time within your scheduled window. No preview, no countdown. The whole point is that you can't prepare to prepare. You either know it or you don't.</p>
+      </div>
+      <div class="callout">
+        <div class="callout-icon">📈</div>
+        <h3>Performance Over Time</h3>
+        <p>Every drill is logged — time, completion percentage, and delta vs. your personal baseline. The trend is what matters. Consistent improvement is the goal. The data shows you where you are.</p>
+      </div>
+      <div class="callout">
+        <div class="callout-icon">🔕</div>
+        <h3>Cuts Through DND</h3>
+        <p>Real emergencies don't check your Do Not Disturb settings. Zero Notice uses iOS Time Sensitive notifications that bypass silent mode and Focus filters — so the drill fires the way a real alert would.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Proxima Holdings LLC. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/drills.html">Drills</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy Policy</a>
+    </div>
+  </footer>
+
+</body>
+</html>

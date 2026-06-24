@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Why emergency drill training matters — the science behind repetition without warning." />
+  <title>Why Train — Zero Notice</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --border: #2a2a2a;
+      --accent: #ff3a2d;
+      --accent-glow: rgba(255,58,45,0.12);
+      --text: #f0f0f0;
+      --muted-2: #888;
+      --muted: #555;
+      --mono: 'Courier New', Courier, monospace;
+    }
+
+    html, body { background: var(--bg); color: var(--text); font-family: var(--mono); min-height: 100vh; }
+
+    /* NAV */
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 40px; border-bottom: 1px solid var(--border);
+    }
+    .nav-left { display: flex; flex-direction: column; gap: 4px; text-decoration: none; }
+    .nav-logo { font-size: 18px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-tagline { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 32px; }
+    nav a.nav-link { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted-2); text-decoration: none; transition: color 0.15s; }
+    nav a.nav-link:hover, nav a.nav-link.active { color: var(--text); }
+
+    /* CONTENT */
+    .content { max-width: 800px; margin: 0 auto; padding: 80px 40px; }
+
+    .page-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+    h1 { font-size: clamp(28px, 5vw, 44px); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 28px; line-height: 1.15; }
+    .lead { font-size: clamp(14px, 1.8vw, 17px); color: var(--muted-2); line-height: 2.1; letter-spacing: 0.04em; margin-bottom: 72px; }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 64px 0; }
+
+    /* STATS */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      background: var(--bg);
+      margin-bottom: 72px;
+    }
+    .stat-box {
+      background: var(--surface); padding: 32px 24px;
+    }
+    .stat-number {
+      font-size: clamp(36px, 5vw, 52px); font-weight: 900;
+      color: var(--accent); letter-spacing: 0.04em;
+      line-height: 1; margin-bottom: 10px;
+    }
+    .stat-desc {
+      font-size: 11px; color: var(--muted-2); line-height: 1.8;
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .stat-source { font-size: 9px; color: var(--muted); margin-top: 10px; letter-spacing: 0.05em; }
+
+    /* BODY SECTIONS */
+    h2 {
+      font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 20px;
+    }
+    p.body-text {
+      font-size: 13px; color: var(--muted-2); line-height: 2.2;
+      letter-spacing: 0.04em; margin-bottom: 24px;
+    }
+    p.body-text strong { color: var(--text); }
+
+    /* PULL QUOTE */
+    .pull-quote {
+      border-left: 3px solid var(--accent);
+      padding: 20px 24px;
+      margin: 40px 0;
+      background: var(--accent-glow);
+    }
+    .pull-quote p {
+      font-size: clamp(14px, 2vw, 18px);
+      color: var(--text); line-height: 1.8; letter-spacing: 0.04em;
+      font-style: italic;
+    }
+
+    /* CTA */
+    .cta-block {
+      margin-top: 72px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 48px 40px;
+      text-align: center;
+    }
+    .cta-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+    .cta-headline { font-size: clamp(20px, 3vw, 28px); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
+    .cta-sub { font-size: 12px; color: var(--muted-2); letter-spacing: 0.08em; line-height: 1.8; margin-bottom: 32px; }
+    .cta-btn {
+      display: inline-block;
+      background: var(--text); color: var(--bg);
+      font-family: var(--mono); font-size: 13px; letter-spacing: 0.2em;
+      text-transform: uppercase; padding: 16px 40px;
+      text-decoration: none; font-weight: bold;
+      transition: background 0.15s, color 0.15s;
+    }
+    .cta-btn:hover { background: var(--accent); color: #fff; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border); padding: 32px 40px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+    footer p { font-size: 10px; color: var(--muted-2); letter-spacing: 0.1em; text-transform: uppercase; }
+    .footer-links { display: flex; gap: 24px; }
+    footer a { font-size: 10px; color: var(--muted-2); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: color 0.15s; }
+    footer a:hover { color: var(--text); }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .nav-right { gap: 16px; }
+      .nav-hide-sm { display: none; }
+      .content { padding: 60px 20px; }
+      footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-left" href="/">
+      <span class="nav-logo"><span>Zero</span> Notice</span>
+      <span class="nav-tagline">Emergency Preparedness</span>
+    </a>
+    <div class="nav-right">
+      <a class="nav-link nav-hide-sm" href="/drills.html">Drills</a>
+      <a class="nav-link nav-hide-sm" href="/faq.html">FAQ</a>
+      <a class="nav-link nav-hide-sm" href="/about.html">About</a>
+      <a class="nav-link" href="/privacy.html">Privacy Policy</a>
+    </div>
+  </nav>
+
+  <div class="content">
+
+    <p class="page-label">The Case for Training</p>
+    <h1>You Can't Think<br />Your Way Through<br />an Emergency</h1>
+    <p class="lead">The gap between knowing what to do and being able to do it under pressure is not closed by reading, planning, or watching videos. It is closed by one thing: practice under conditions that simulate the real thing. This is what every military unit, every fire department, and every surgical team has known for decades. The question is whether you've applied it to your own preparedness.</p>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-number">54%</div>
+        <div class="stat-desc">of Americans have no emergency plan for their household</div>
+        <div class="stat-source">Source: FEMA National Household Survey</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">8%</div>
+        <div class="stat-desc">of those with a plan have actually practiced it in the last year</div>
+        <div class="stat-source">Source: FEMA Preparedness Data</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">90s</div>
+        <div class="stat-desc">average time to reach safety from a residential fire — if you move immediately</div>
+        <div class="stat-source">Source: NFPA Fire Safety Research</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">3x</div>
+        <div class="stat-desc">faster decision-making in high-stress scenarios after repetition-based training</div>
+        <div class="stat-source">Source: Applied Cognitive Psychology Research</div>
+      </div>
+    </div>
+
+    <!-- SECTION 1 -->
+    <h2>The Problem with Plans</h2>
+    <p class="body-text">A plan is a document. A plan tells you what you would do in theory, under calm conditions, with time to think. Real emergencies give you none of that. They arrive without warning. They activate a stress response that narrows your cognitive bandwidth, degrades fine motor control, and forces your brain to rely on whatever is most deeply encoded — which means whatever you've done the most.</p>
+    <p class="body-text">If the most you've done is read about what to do, that's what your brain reaches for. If you've practiced the protocol 30 times under randomized pressure, your hands move before your brain catches up. That's the difference between a plan and a capability.</p>
+
+    <div class="pull-quote">
+      <p>"Under extreme stress, you don't rise to the occasion — you fall to the level of your training."</p>
+    </div>
+
+    <p class="body-text">This principle, originally articulated in military and law enforcement training doctrine, has been validated repeatedly across domains: surgery, aviation, firefighting, emergency medicine. High-performance under stress is not a personality trait. It is a training outcome.</p>
+
+    <hr class="divider" />
+
+    <!-- SECTION 2 -->
+    <h2>Why Warning Defeats the Purpose</h2>
+    <p class="body-text">Traditional emergency drills — scheduled, announced, time-blocked — train you to perform when you're ready. They build a very specific kind of competence: the ability to execute a protocol when you know it's coming. That competence is nearly useless in a real emergency.</p>
+    <p class="body-text">The critical variable is <strong>the absence of warning</strong>. When a drill fires at 11:47pm on a Wednesday with no preview, you're training your nervous system to activate under actual unpredictability. You're building the specific reflex that matters: the ability to shift from completely unready to fully executing in the shortest possible time.</p>
+    <p class="body-text">This is why Zero Notice randomizes the time within your training window. The randomization is not a feature. It is the methodology.</p>
+
+    <hr class="divider" />
+
+    <!-- SECTION 3 -->
+    <h2>What Repetition Actually Does</h2>
+    <p class="body-text">Repeated practice under variable conditions encodes procedural memory — the type of memory that governs physical skills and sequences. Unlike declarative memory (facts, plans, information), procedural memory is retrieved automatically under stress. You don't recall it. Your body executes it.</p>
+    <p class="body-text">The measurable outcome is response time reduction. In the Zero Notice history view, you can watch your average drill time compress over months of training. That compression represents something real: the gap between the alert and full execution getting shorter, faster, more automatic.</p>
+    <p class="body-text"><strong>That compression is the entire point.</strong> In a home fire, an active threat scenario, or a medical emergency, the difference between a 90-second response and a 4-minute response is not academic. The goal of Zero Notice is to push that number down through repetition — and to show you exactly where it is at all times.</p>
+
+    <hr class="divider" />
+
+    <!-- SECTION 4 -->
+    <h2>Your Protocol, Your Standard</h2>
+    <p class="body-text">Zero Notice doesn't define what preparedness looks like for you. Your threat environment, your gear, your household, your priorities — these determine your protocol. What the app provides is the mechanism to test that protocol under real conditions and measure whether you're actually achieving it.</p>
+    <p class="body-text">Three drills a month will tell you whether your plan is even executable. Consistent weekly training will build the competence to execute it under duress. The data will tell you whether you're improving, plateauing, or slipping. The rest is up to you.</p>
+
+    <div class="cta-block">
+      <p class="cta-label">Start Training</p>
+      <p class="cta-headline">The Only Way to Know<br />Is to Test It</p>
+      <p class="cta-sub">Zero Notice — iOS — Coming Soon</p>
+      <a class="cta-btn" href="/">Back to Home</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Proxima Holdings LLC. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/drills.html">Drills</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy Policy</a>
+    </div>
+  </footer>
+
+</body>
+</html>
