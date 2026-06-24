@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About Zero Notice — why the app was built, the idea behind it, and the company behind the product." />
+  <title>About — Zero Notice</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --border: #2a2a2a;
+      --accent: #ff3a2d;
+      --accent-glow: rgba(255,58,45,0.12);
+      --text: #f0f0f0;
+      --muted-2: #888;
+      --muted: #555;
+      --mono: 'Courier New', Courier, monospace;
+    }
+
+    html, body { background: var(--bg); color: var(--text); font-family: var(--mono); min-height: 100vh; }
+
+    /* NAV */
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 40px; border-bottom: 1px solid var(--border);
+    }
+    .nav-left { display: flex; flex-direction: column; gap: 4px; text-decoration: none; }
+    .nav-logo { font-size: 18px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-tagline { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 32px; }
+    nav a.nav-link { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted-2); text-decoration: none; transition: color 0.15s; }
+    nav a.nav-link:hover, nav a.nav-link.active { color: var(--text); }
+
+    /* CONTENT */
+    .content { max-width: 800px; margin: 0 auto; padding: 80px 40px; }
+
+    .page-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+    h1 { font-size: clamp(28px, 5vw, 44px); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 28px; line-height: 1.15; }
+    .lead { font-size: clamp(14px, 1.8vw, 16px); color: var(--muted-2); line-height: 2.2; letter-spacing: 0.04em; margin-bottom: 72px; }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 64px 0; }
+
+    h2 {
+      font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 20px;
+    }
+    p.body-text {
+      font-size: 13px; color: var(--muted-2); line-height: 2.2;
+      letter-spacing: 0.04em; margin-bottom: 24px;
+    }
+    p.body-text strong { color: var(--text); }
+    p.body-text:last-of-type { margin-bottom: 0; }
+
+    /* PULL QUOTE */
+    .pull-quote {
+      border-left: 3px solid var(--accent);
+      padding: 20px 24px;
+      margin: 40px 0;
+      background: var(--accent-glow);
+    }
+    .pull-quote p {
+      font-size: clamp(14px, 2vw, 17px);
+      color: var(--text); line-height: 1.8; letter-spacing: 0.04em;
+      font-style: italic;
+    }
+
+    /* COMPANY BLOCK */
+    .company-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 40px;
+      margin-top: 64px;
+    }
+    .company-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+    .company-name { font-size: 18px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); margin-bottom: 16px; }
+    .company-text { font-size: 13px; color: var(--muted-2); line-height: 2.1; letter-spacing: 0.04em; }
+
+    /* CONTACT */
+    .contact-block {
+      margin-top: 40px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 40px;
+    }
+    .contact-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .contact-text { font-size: 13px; color: var(--muted-2); line-height: 2; letter-spacing: 0.03em; }
+    .contact-text a { color: var(--accent); text-decoration: none; }
+    .contact-text a:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border); padding: 32px 40px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+    footer p { font-size: 10px; color: var(--muted-2); letter-spacing: 0.1em; text-transform: uppercase; }
+    .footer-links { display: flex; gap: 24px; }
+    footer a { font-size: 10px; color: var(--muted-2); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: color 0.15s; }
+    footer a:hover { color: var(--text); }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .nav-right { gap: 16px; }
+      .nav-hide-sm { display: none; }
+      .content { padding: 60px 20px; }
+      .company-block, .contact-block { padding: 28px 20px; }
+      footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-left" href="/">
+      <span class="nav-logo"><span>Zero</span> Notice</span>
+      <span class="nav-tagline">Emergency Preparedness</span>
+    </a>
+    <div class="nav-right">
+      <a class="nav-link nav-hide-sm" href="/drills.html">Drills</a>
+      <a class="nav-link nav-hide-sm" href="/faq.html">FAQ</a>
+      <a class="nav-link active nav-hide-sm" href="/about.html">About</a>
+      <a class="nav-link" href="/privacy.html">Privacy Policy</a>
+    </div>
+  </nav>
+
+  <div class="content">
+
+    <p class="page-label">The Origin</p>
+    <h1>Where the<br />Idea Came From</h1>
+    <p class="lead">Zero Notice didn't come from research. It came from a question that didn't have a good answer: if something happened right now, how long would it actually take me to get out?</p>
+
+    <!-- ORIGIN -->
+    <h2>The First Drill</h2>
+    <p class="body-text">The gear was there. Most serious preppers have the gear. The question was whether any of it was actually accessible under pressure — and how long a full kit-up and exit would realistically take. So the clock started. Bag, boots, everything on the list. It came in somewhere between ten and eleven minutes.</p>
+    <p class="body-text">The problem was obvious the moment it was done. <strong>The drill was planned.</strong> There was no urgency. No adrenaline. No being jolted out of sleep at 2am with no context and no warm-up. Just a person going through a checklist they'd already mentally rehearsed before they started the timer. That's not a drill — that's a performance. Performances don't prepare you for emergencies. They prepare you for performances.</p>
+    <p class="body-text">The gap is the warning. The moment you know a drill is coming, you've already removed the variable that makes real emergencies hard. You haven't trained your response. You've trained your readiness to train.</p>
+
+    <div class="pull-quote">
+      <p>"The first test came in at ten minutes. That was planned, with full knowledge it was coming. The number in a real emergency would be worse. That's the problem Zero Notice is built to solve."</p>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- WHAT FOLLOWED -->
+    <h2>What Followed</h2>
+    <p class="body-text">Zero Notice is the solution to that problem. The app removes planning from the equation entirely. You define the protocol — your gear, your checklist, your steps — and the app fires the drill at a randomized time with zero advance notice. It cuts through Do Not Disturb. The clock starts the moment the alert hits. There's no countdown, no preview, no mental warm-up.</p>
+    <p class="body-text">The result is a training condition that's actually close to a real emergency: unplanned, unwelcome, and on the clock. Run it consistently and two things happen. Your response time drops. And the gap between getting the alert and moving closes from minutes to seconds.</p>
+    <p class="body-text">That compression is the entire point. The app logs every drill, tracks your time against your personal baseline, and shows your improvement over time. The data tells you exactly where you stand — not where you think you stand.</p>
+
+    <!-- COMPANY -->
+    <div class="company-block">
+      <p class="company-label">The Company</p>
+      <p class="company-name">Proxima Holdings LLC</p>
+      <p class="company-text">Zero Notice is a product of Proxima Holdings LLC, a Limited Liability Company founded in 2026. Proxima builds products across software, media, and physical goods.</p>
+      <p class="company-text" style="margin-top: 16px;">The standard is the same across everything built under the Proxima name: honest in what it claims, quality that earns its price, the integrity to ship only what we'd use ourselves, accountability when something falls short, and the understanding that trust is built through all of the above — not assumed.</p>
+    </div>
+
+    <div class="contact-block">
+      <p class="contact-label">Contact</p>
+      <p class="contact-text">Questions about Zero Notice, press inquiries, or anything else — reach out at <a href="mailto:info@proximaholdings.com">info@proximaholdings.com</a>.</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Proxima Holdings LLC. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/drills.html">Drills</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy Policy</a>
+    </div>
+  </footer>
+
+</body>
+</html>
