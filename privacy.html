@@ -177,6 +177,33 @@
       .content { padding: 60px 20px; }
       footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
     }
+
+    /* MOBILE NAV STRIP */
+    .mobile-nav { display: none; }
+    @media (max-width: 600px) {
+      .mobile-nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px 16px;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+      .mobile-nav a {
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-decoration: none;
+        padding: 6px 8px;
+        transition: color 0.15s;
+        white-space: nowrap;
+      }
+      .mobile-nav a.active,
+      .mobile-nav a:hover { color: var(--text); }
+    }
   </style>
 </head>
 <body>
@@ -185,6 +212,15 @@
     <a class="nav-logo" href="/"><span>Zero</span> Notice</a>
     <a class="nav-link" href="/">Home</a>
   </nav>
+
+  <div class="mobile-nav">
+    <a href="/">Home</a>
+    <a href="/drills.html">Drills</a>
+    <a href="/faq.html">FAQ</a>
+    <a href="/why.html">Why</a>
+    <a href="/about.html">About</a>
+    <a href="/privacy.html" class="active">Privacy</a>
+  </div>
 
   <div class="content">
     <p class="page-label">Legal</p>
